@@ -1,0 +1,61 @@
+TOPIC : Prefix Sum / Sliding Window 
+DATE : 02-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. MAXIMUM SUBARRAY (LEETCODE 53)(MEDIUM)
+   CONCEPT : KADEN'S ALGO
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int currentSum = 0;
+        for (int x : nums) {
+            currentSum += x;
+            if (currentSum > max) {
+                max = currentSum;
+            }
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+        }
+        return max;
+    }
+}
+
+2. Contains Duplicates (LEETCODE 217)(EASY)
+   CONCEPT : HASHSET 
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> hs = new HashSet<>();
+        for(int i =0 ;i<nums.length;i++){
+            if(hs.contains(nums[i])){
+                return true;
+            }
+            else{
+                hs.add(nums[i]);
+            }
+        }
+        return false;
+
+    }
+}
+
+3. Maximum Subarray Avg (LEETCODE 643)(EASY)
+   CONCEPT : SLIDING WINDOW OF K SIZE.
+
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int currentSum = 0;
+        for(int i =0;i<k;i++) currentSum+= nums[i];
+        int max = currentSum;
+        for(int i =k;i<nums.length;i++){
+            currentSum=currentSum-nums[i-k]+nums[i];
+             if(currentSum>max) {
+                max= currentSum;
+            }
+        }
+        return (double)max/k;
+        
+    }
+}
