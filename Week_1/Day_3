@@ -1,0 +1,87 @@
+TOPIC : TWO POINTER
+DATE : 02-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. MOVES ZEROES (LEETCODE 283)(EASY)
+   CONCEPT : TWO POINTER + SWAP 
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int n = nums.length;
+        int pointer =0;
+        for(int i =0 ;i<n;i++){
+            if(nums[i]!=0){
+                int temp = nums[i];
+                nums[i]=nums[pointer];
+                nums[pointer]=temp;
+                pointer++;
+            }
+        }
+    }
+}
+
+2. SQUARE OF SORTED ARRAY (LEETCODE 977)(EASY)
+   CONCEPT : TWO POINTER OR BRUTE FORCE 
+
+Solution A : BRUTE FORCE
+class Solution { 
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+        for(int i =0;i<n;i++){
+            nums[i]=nums[i]*nums[i];
+            }
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<n-i-1;j++){
+                if(nums[j]>nums[j+1]){
+                    int temp = nums[j];
+                    nums[j]=nums[j+1];
+                    nums[j+1]=temp;
+                }
+            }
+        }
+        return nums;
+    }
+}
+
+Solution B : TWO POINTERS
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int n = nums.length;
+        int left = 0;
+        int right = n-1;
+        int [] arr = new int [n];
+        for(int i = n-1;i>=0;i--){
+            if(Math.abs(nums[left])>Math.abs(nums[right])){
+                arr[i]=nums[left]*nums[left];
+                left++;
+            }
+            else {
+                arr[i]=nums[right]*nums[right];
+                right--;
+            }
+        }
+        return arr;
+    }
+}
+
+3. CONTAINER WITH MOST WATER (LEETCODE 11)(MEDIUM)
+   CONCEPT : TWO POINTER + MAX WALL
+
+class Solution {
+    public int maxArea(int[] height) {
+        int max = 0;
+        int l = 0;
+        int r = height.length - 1;
+        while (l < r) {
+            int currentArea = Math.min(height[l], height[r]) * (r - l);
+            max = Math.max(max, currentArea);
+
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return max;
+    }
+}
