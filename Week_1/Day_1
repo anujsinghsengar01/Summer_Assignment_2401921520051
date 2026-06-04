@@ -1,28 +1,28 @@
-// 1. TWO SUM //
+TOPIC : ARRAYS BASICS 
+DATE : 01-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. TWO SUM (LEETCODE 1)(EASY)
+   CONCEPT : BRUTEFORCE
+
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-       
         int[] arr = new int[2];
-        
-        
-
         for(int i =0;i<(nums.length-1);i++){
             for(int j=nums.length-1;j>0;j--){
             if(i!=j && nums[i]+nums[j]==target){
              arr[0]=i;
              arr[1]=j;
              break;
-
-
             }}
         }
         return arr;
-        
     }
 }
 
+2. REMOVE DUPLICATES FROM SORTED ARRAYS (LEETCODE 26)(EASY)
+   CONCEPT : COUNTING 
 
-//2. Remove duplicates from sorted array
 class Solution {
     public int removeDuplicates(int[] nums) {
         if (nums.length == 0) return 0;
@@ -34,29 +34,24 @@ class Solution {
                 count++;
             }
         }
-//temo fill
         int[] temp = new int[count];
         int k = 0; 
-        
         for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i] != nums[i + 1]) {
                 temp[k] = nums[i]; 
                 k++;
             }
         }
-        
         temp[k] = nums[nums.length - 1];
-
-       
         for (int i = 0; i < count; i++) {
             nums[i] = temp[i];
         }
-
         return count;
     }
 }
 
-// 3. best time to buy and sell stock
+3. BEST TIME TO BUY AND SELL STOCKS (LEETCODE 121)(EASY)
+   CONCEPT : FIND MIN AND SAVE MAX 
 class Solution {
     public int maxProfit(int[] arr) {
         int min = arr[0];
@@ -67,9 +62,6 @@ class Solution {
             }
             else maxProfit=Math.max(maxProfit,arr[i]-min);
         }
-   
     return maxProfit;
-        
     }
 }
-
