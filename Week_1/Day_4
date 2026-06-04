@@ -1,0 +1,84 @@
+TOPIC : MATRIX PROBLEMS
+DATE : 04-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. MATRIX DIAGONAL SUM (LEETCODE 1572)(EASY)
+   CONCEPT : DIAGONAL EQNS
+
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        int sum =0;
+        for(int i =0;i<mat.length;i++){
+            for(int j =0;j<mat.length;j++){
+                if(i==j ||i==mat.length-j-1){
+                    sum+=mat[i][j];
+                }
+            }
+        }
+        return sum;
+    }
+}
+
+2. RESHAPE THE MATRIX (LEETCODE 566)(EASY)
+   CONCEPT : TWO POINTER + BRUTE FORCE 
+
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        if(r*c!=mat.length*mat[0].length) return mat;
+        int [][] result = new int[r][c];
+        int p =0;
+        int q =0;
+        for(int i =0;i<mat.length;i++){
+            for(int j =0;j<mat[0].length;j++){
+                result[p][q]=mat[i][j];
+                q++;
+                if(q==c){
+                    q=0;
+                    p++;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+3. SPRIAL MATRIX (LEETCODE 54)(MEDIUM)
+   CONCEPT : FOUR POINTERS FOR WALLS CONDITIONS
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m =matrix.length;
+        int n =matrix[0].length;
+        int top =0;
+        int bottom = m-1;
+        int left =0;
+        int right = n -1;
+        List<Integer> list = new LinkedList<>();
+        while(top<=bottom && left<=right){
+            for(int j = left ;j<=right;j++){
+                list.add(matrix[top][j]);
+            }
+            top++;
+            for(int i = top;i<=bottom;i++){
+                list.add(matrix[i][right]);
+            }
+            right--;
+
+            if(top<=bottom){
+                for(int j = right ;j>=left;j--){
+                    list.add(matrix[bottom][j]);
+                }
+                bottom--;
+            }
+            
+            if(left<=right){
+                for(int i =bottom ;i>=top;i--){
+                    list.add(matrix[i][left]);
+                }
+                left++;
+            }
+
+        }
+        return list;
+    }
+}
