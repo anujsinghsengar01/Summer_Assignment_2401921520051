@@ -1,0 +1,67 @@
+TOPIC : STRING BASICS
+DATE : 05-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. VALID PALINDROME (LEETCODE 125)(EASY)
+   CONCEPT : String + Two Pointers
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for(int i =0;i<s.length();i++){
+            char ch =s.charAt(i);
+            if(Character.isLetterOrDigit(ch)){
+                sb.append(Character.toLowerCase(ch));
+            }
+        }
+        int l =0;
+        int r = sb.length()-1;
+        while(l<r){
+            if(sb.charAt(l)!=sb.charAt(r)){
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
+
+2. REVERSE A STRING (LEETCODE 344)(EASY)
+   CONCEPT : String Swap
+
+class Solution {
+    public void reverseString(char[] s) {
+        for(int i =0;i<s.length/2;i++){
+            char temp = s[i];
+            s[i]= s[s.length-1-i];
+            s[s.length-1-i]=temp;
+        }
+        
+    }
+}
+
+3. LONGEST COMMON PREFIX (LEETCODE 14)(EASY)
+   CONCEPT : Compare Starting OF All Elements
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length==0) return "";
+        int n = strs.length;
+        int p =0;
+        int minString = Integer.MAX_VALUE;
+        for(int i =0 ;i<n;i++){
+            minString=Math.min(minString,strs[i].length());
+        }
+        while(p!=minString){
+            char ch =strs[0].charAt(p);
+            for(int i=0;i<n;i++) {
+                if (strs[i].charAt(p)!= ch) {
+                    return strs[0].substring(0,p);
+                }
+            }
+            p++;
+        }
+        return strs[0].substring(0,p);
+    }
+}
