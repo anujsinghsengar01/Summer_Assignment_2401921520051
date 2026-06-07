@@ -1,0 +1,86 @@
+TOPIC : INTERFACE
+DATE  : 07-5-26
+AUTHOR : ANUJ SINGH SENGAR
+
+interface LibraryUser {
+    void registerAccount();
+    void requestBook(String bookType);
+}
+class KidUser implements LibraryUser {
+    private int age;
+    public KidUser(int age) {
+        this.age = age;
+    }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+
+    @Override
+    public void registerAccount() {
+        if (age <= 12) {
+            System.out.println("Success: Registered under a Kids Account.");
+        } else {
+            System.out.println("Error: Age must be 12 or under for a Kids Account.");
+        }
+    }
+
+    @Override
+    public void requestBook(String bookType) {
+        if ("Kids".equalsIgnoreCase(bookType)) {
+            System.out.println("Book issued! Please return within 10 days.");
+        } else {
+            System.out.println("Access Denied: Kids accounts can only borrow kids' books.");
+        }
+    }
+}
+
+class AdultUser implements LibraryUser {
+    private int age;
+    public AdultUser(int age) {
+        this.age = age;
+    }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+
+    @Override
+    public void registerAccount() {
+        if (age > 12) {
+            System.out.println("Success: Registered under an Adult Account.");
+        } else {
+            System.out.println("Error: Adult accounts require age 13 or older.");
+        }
+    }
+
+    @Override
+    public void requestBook(String bookType) {
+        if ("Fiction".equalsIgnoreCase(bookType)) {
+            System.out.println("Book issued! Please return within 7 days.");
+        } else {
+            System.out.println("Access Denied: Adult accounts can only borrow fiction books.");
+        }
+    }
+}
+
+public class LibraryInterfaceDemo {
+    public static void main(String[] args) {
+        System.out.println("=== Welcome to the City Library ===\n");
+
+        System.out.println("--- Test 1: Valid Kid (Age 10) ---");
+        KidUser kid1 = new KidUser(10);
+        kid1.registerAccount();
+        kid1.requestBook("Kids");
+
+        System.out.println("\n--- Test 2: 18 old as kid account ---");
+        KidUser kid2 = new KidUser(18);
+        kid2.registerAccount();
+
+        System.out.println("\n--- Test 3: Kid Want Fiction ---");
+        KidUser kid3 = new KidUser(10);
+        kid3.registerAccount();
+        kid3.requestBook("Fiction");
+        
+        System.out.println("\n--- Test 4: Adult User (Age 25) ---");
+        AdultUser adult = new AdultUser(25);
+        adult.registerAccount();
+        adult.requestBook("Fiction");
+    }
+}
