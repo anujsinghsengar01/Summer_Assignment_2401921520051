@@ -1,0 +1,74 @@
+TOPIC :  Sliding Window on Strings 
+DATE : 09-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Longest Substring Without Repeating Characters  (LEETCODE 3)(Medium)
+   CONCEPT : Sliding Window
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int max = 0;
+        int l =0;
+        HashSet<Character> set = new HashSet<>();
+        for( int i =0 ;i<s.length();i++){
+            while(set.contains(s.charAt(i))){
+                set.remove(s.charAt(l));
+                l++;
+            }
+            set.add(s.charAt(i));
+            max=Math.max(max,set.size());
+            
+        }
+        return max;
+    }
+}
+
+2. Permutation in String (LEETCODE 567)(Medium)
+   CONCEPT : Freq. Array +  k Window
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()) return false;
+        int[] count = new int[26];
+        int[] window = new int[26];
+        for( int i =0 ;i<s1.length();i++) {
+            count[s1.charAt(i)-'a']++;
+        }
+        for( int i =0 ;i<s.length();i++){
+            window[s2.charAt(i)-'a']++;
+        }
+        if (Arrays.equals(count,window)) return true;
+        for (int i =s1.length();i<s2.length();i++){
+            window[s2.charAt(i)-'a']++;
+            window[s2.charAt(i-s1.length())-'a']--;
+            if (Arrays.equals(count,window)) return true;
+        }
+        return false;
+    }
+}
+
+3. Find All Anagrams in a String (LEETCODE 438)(Medium)
+   CONCEPT : Count Freq And Check
+
+class Solution {
+    public List<Integer> findAnagrams(String p, String s) {
+        List<Integer> list = new ArrayList<>();
+        if(s.length()>p.length()) return list;
+        int[] count = new int[26];
+        int[] window = new int[26];
+        for( int i =0 ;i<s.length();i++) {
+            count[s.charAt(i)-'a']++;
+        }
+        for( int i =0 ;i<s.length();i++){
+            window[p.charAt(i)-'a']++;
+        }
+        if (Arrays.equals(count,window)) list.add(0);
+        for (int i =s.length();i<p.length();i++){
+            window[p.charAt(i)-'a']++;
+            window[p.charAt(i-s.length())-'a']--;
+            if (Arrays.equals(count,window)) list.add(i-s.length()+1);
+        }
+        return list;
+        
+    }
+}
