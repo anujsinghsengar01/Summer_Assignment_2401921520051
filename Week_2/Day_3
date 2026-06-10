@@ -1,0 +1,51 @@
+TOPIC :  Pattern Matching
+DATE : 10-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Implement strStr() (LEETCODE 28)(EASY)
+   CONCEPT : Substring
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int n = haystack.length();
+        for(int i =0;i<n-needle.length()+1;i++){
+            if(haystack.substring(i,i+needle.length()).equals(needle)){
+                return i ;
+            }
+        }
+        return -1;
+    }
+}
+
+2. Is Subsequence (LEETCODE 392)(EASY)
+   CONCEPT : Two Pointer  
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s.length()==0)return true;
+        int l =0;
+        int i =0;
+        while(i<t.length()&&l<s.length()){
+            if(s.charAt(l)==t.charAt(i)){
+                l++;
+            }
+            i++;
+        }
+        return l==s.length();
+    }
+}
+
+3. Repeated Substring Pattern (LEETCODE 459)(EASY)
+   CONCEPT : String Functions
+
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        int n = s.length();
+        for (int i = 1; i <= n / 2; i++) {
+            if (n%i==0 &&s.substring(0,i).repeat(n/i).equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
