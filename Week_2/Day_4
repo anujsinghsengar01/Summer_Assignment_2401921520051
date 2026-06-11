@@ -1,0 +1,92 @@
+TOPIC :  : Recursion + Strings 
+DATE : 11-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Reverse Words in a String III (LEETCODE 557)(EASY)
+   CONCEPT : Substring + two pointer
+
+class Solution {
+    public String reverseWords(String s) {
+        char[] arr = s.toCharArray();
+        int n = arr.length;
+        int p = 0;
+        for (int i = 0; i <= n; i++) {
+            if (i == n || arr[i] == ' ') {
+                reverse(arr, p, i - 1);
+                p = i + 1;
+            }
+        }
+
+        return new String(arr);
+    }
+
+    private void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+2. Decode String (LEETCODE 394)(Medium)
+   CONCEPT : Stack + String 
+
+class Solution {
+    public String decodeString(String s) {
+        int n = s.length();
+        Stack<String> string = new Stack<>();
+        Stack<Integer> numbers = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        int num = 0;
+        for (int i=0;i<n;i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                num = num * 10 + (c - '0');
+            } else if (c == '[') {
+                string.push(sb.toString());
+                numbers.push(num);
+                sb = new StringBuilder();
+                num = 0;
+            } else if (c == ']') {
+                StringBuilder prev = new StringBuilder(string.pop());
+                int k = numbers.pop();
+                for (int j = 0; j < k; j++) {
+                    prev.append(sb);
+                }
+                sb = prev;
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}
+
+3. Generate Parentheses (LEETCODE 22)(Medium)
+   CONCEPT : Recursion (Backtracking)
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList<>();
+        genrator_rec(ans, new StringBuilder(), 0, 0, n);
+        return ans;
+    }
+    private void genrator_rec(List<String> ans, StringBuilder sb, int openBrackets, int closeBrackets, int n) {
+        if (sb.length() == 2 * n) {
+            ans.add(sb.toString());
+            return;
+        }
+        if (openBrackets < n) {
+            sb.append('(');
+            genrator_rec(ans, sb, openBrackets + 1, closeBrackets, n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if (closeBrackets < openBrackets) {
+            sb.append(')');
+            genrator_rec(ans, sb, openBrackets, closeBrackets + 1, n);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
