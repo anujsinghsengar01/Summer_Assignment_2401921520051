@@ -1,0 +1,84 @@
+TOPIC :  : Mixed String Problems  
+DATE : 12-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Group Anagram (LEETCODE 49)(Medium)
+   CONCEPT : Sorting + HashMap 
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
+
+2. String Compression (LEETCODE 443)(Medium)
+   CONCEPT : Two pointer
+
+class Solution {
+    public int compress(char[] chars) {
+        int n=chars.length;
+        int p=0;
+        int count=1;
+        for(int i=1;i<n;i++) {
+            if(chars[i-1]==chars[i]) {
+                count++;
+            } else {
+                chars[p]=chars[i-1];
+                p++;
+                if(count>1) {
+                    for(char digit:Integer.toString(count).toCharArray()) {
+                        chars[p]=digit;
+                        p++;
+                    }
+                }
+                count=1;
+            }
+        }
+        chars[p]=chars[n-1];
+        p++;
+        if(count>1) {
+            for(char digit:Integer.toString(count).toCharArray()) {
+                chars[p]=digit;
+                p++;
+            }
+        }
+        return p;
+    }
+}
+
+3. Longest Palindromic String (LEETCODE 5)(Medium)
+   CONCEPT : Substring      
+
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        int max = Integer.MIN_VALUE;
+        String res = "";
+        for (int i = 0; i < n; i++) { 
+            for (int j = i; j < n; j++) { 
+                int len = j - i + 1;
+                if (isPalindrome(s.substring(i, j + 1)) && len > max) {
+                    max = len;
+                    res = s.substring(i, j + 1);
+                }
+            }
+        }
+        return res;
+    }
+    static boolean isPalindrome(String strs) {
+        int n = strs.length();
+        for (int i = 0; i < n / 2; i++) {
+            if (strs.charAt(i) != strs.charAt(n - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
