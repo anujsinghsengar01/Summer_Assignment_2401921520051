@@ -1,1 +1,55 @@
+TOPIC : Linked List
+DATE : 15-06-2026
+AUTHOR : ANUJ SINGH SENGAR
 
+1. Linked List Cycle (LEETCODE 141)(EASY)
+   CONCEPT : Fast And Slow Pointer
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+2. Reverse Linked List  (LEETCODE 206)(EASY)
+   CONCEPT : LinkedList
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode dummy = new ListNode();
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = dummy.next;  
+            dummy.next = curr;
+            curr = next;
+        }
+        return dummy.next;
+    }
+}
+
+3. Middle Of the LinkedList (LEETCODE 876)(EASY)
+   CONCEPT :Fast And Slow Pointer
+
+lass Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
+}
