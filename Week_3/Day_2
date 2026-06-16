@@ -1,0 +1,69 @@
+TOPIC : Linked List
+DATE : 16-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Merge Sorted List (LEETCODE 21)(EASY)
+   CONCEPT : Fast And Slow Pointer
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode curr = dummy;
+        
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            curr = curr.next;
+        }
+        
+        curr.next = (list1 == null) ? list2 : list1;
+        return dummy.next;
+    }
+}
+2. Remove Nth Node From End  (LEETCODE 19)(MEDIUM)
+   CONCEPT : Linked List
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode p = dummy;
+        ListNode q = dummy;
+        for (int i = 0; i <= n; i++) {
+            p = p.next;
+        }
+        while (p != null) {
+            p = p.next;
+            q = q.next;
+        }
+        q.next = q.next.next;
+        return dummy.next;
+    }
+}
+
+3. Palindrome LinkedList (LEETCODE 876)(EASY)
+   CONCEPT :Stack + LinkedList
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        Stack<Integer> stack = new Stack<>();
+        ListNode curr = head;
+        while (curr != null) {
+            stack.push(curr.val);
+            curr = curr.next;
+        }
+        curr = head;
+        while (curr != null) {
+            if (curr.val != stack.pop()) {
+                return false;
+            }
+            curr = curr.next;
+        }
+        return true;
+    }
+}
+ 
