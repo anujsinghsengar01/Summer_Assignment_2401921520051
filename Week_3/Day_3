@@ -1,0 +1,72 @@
+TOPIC : Stack 
+DATE : 17-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Valid Parentheses (LEETCODE 20)(EASY)
+   CONCEPT : Stack
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) return false;
+                char top = stack.pop();
+                if (c == ')' && top != '(') return false;
+                if (c == ']' && top != '[') return false;
+                if (c == '}' && top != '{') return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+2. Min Stack (LEETCODE 155)(MEDIUM)
+   CONCEPT : MINHEAP + STACK
+
+class MinStack {
+    PriorityQueue<Integer> minHeap;
+    Stack<Integer> stack = new Stack<>();
+    public MinStack() {
+        minHeap =new PriorityQueue<>();
+    }
+    public void push(int val) {
+        minHeap.offer(val);
+        stack.push(val);
+    }
+    public void pop() {
+        minHeap.remove(stack.pop());
+    }
+    public int top() {
+        return stack.peek();
+    }
+    public int getMin() {
+        return minHeap.peek();
+    }
+}
+
+3. Next Greater Element I  (LEETCODE 496)(EASY)
+   CONCEPT :Stack + LinkedList
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Deque<Integer> stack = new ArrayDeque<>();
+        int[] result = new int[nums1.length];
+        
+        for (int num : nums2) {
+            while (!stack.isEmpty() && stack.peek() < num) {
+                map.put(stack.pop(), num);
+            }
+            stack.push(num);
+        }
+        while (!stack.isEmpty()) {
+            map.put(stack.pop(), -1);
+        }
+        for (int i = 0; i < nums1.length; i++) {
+            result[i] = map.get(nums1[i]);
+        }
+        return result;
+    }
+}
