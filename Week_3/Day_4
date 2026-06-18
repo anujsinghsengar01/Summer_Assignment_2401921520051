@@ -1,0 +1,74 @@
+TOPIC : Stack 
+DATE : 18-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. DAILY TEMPERATURES (LEETCODE 739)(MEDIUM)
+   CONCEPT : Stack + HashMap
+
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        Deque<Integer> stack = new ArrayDeque<>();
+        int[] result = new int[temperatures.length];
+        for(int i=0;i<n;i++){
+            while(!stack.isEmpty()&&temperatures[stack.peek()]<temperatures[i]){
+                int last = stack.pop();
+                result[last]=i-last;
+            }
+            stack.push(i);
+        }
+        return result;
+    }
+}
+
+2. Evaluate Reverse Polish Notation (LEETCODE 150)(MEDIUM)
+   CONCEPT : Stack
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        int[] stack = new int[tokens.length];
+        int top = -1;
+        
+        for (String c : tokens) {
+            char ch = c.charAt(0);
+            if (c.length() == 1 && (ch == '+' || ch == '-' || ch == '*' || ch == '/')) {
+                int b = stack[top--];
+                int a = stack[top--];
+                stack[++top] = switch (ch) {
+                    case '+' -> a + b;
+                    case '-' -> a - b;
+                    case '*' -> a * b;
+                    default -> a / b; 
+                };
+            } else {
+                stack[++top] = Integer.parseInt(c);
+            }
+        }
+        return stack[top];
+    }
+}
+
+3. Largest Rectangle in Histogram  (LEETCODE 84)(HARD)
+   CONCEPT : Stack 
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        Deque<Integer> stack = new ArrayDeque<>();
+        int maxArea = 0;
+        
+        for (int i = 0; i <= n; i++) {
+            int currHeight = (i == n) ? 0 : heights[i];
+            
+            while (!stack.isEmpty() && currHeight < heights[stack.peek()]) {
+                int height = heights[stack.pop()];
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * width);
+            }
+            
+            stack.push(i);
+        }
+        
+        return maxArea;
+    }
+}
