@@ -1,0 +1,86 @@
+TOPIC : Queue / Deque
+DATE : 19-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Implement Queue using Stacks (LEETCODE 232)(EASY)
+   CONCEPT : Stack+Queue
+
+class MyQueue {
+    private Stack<Integer> stackin;
+    private Stack<Integer> stackout;
+
+
+    public MyQueue() {
+        stackin = new Stack<>();
+        stackout = new Stack<>();
+    }
+    
+    public void push(int x) {
+        stackin.push(x);
+    }
+    
+    public int pop() {
+        if(stackout.isEmpty()){
+            while(!stackin.isEmpty()){
+            stackout.push(stackin.pop());
+        }
+        }
+        return stackout.pop();
+    }
+    
+    public int peek() {
+        if(stackout.isEmpty()){
+            while(!stackin.isEmpty()){
+            stackout.push(stackin.pop());
+        }
+        }
+        return stackout.peek();
+    }
+    
+    public boolean empty() {
+        return stackout.isEmpty() && stackin.isEmpty();
+    }
+}
+
+2. Number of Recent Calls (LEETCODE 933)(EASY)
+   CONCEPT : Deque
+
+class RecentCounter {
+    private Deque<Integer> dq ;
+    public RecentCounter() {
+        dq = new ArrayDeque<>();
+    }
+    public int ping(int t) {
+        dq.offerLast(t);
+        int a = t-3000;
+        while(dq.peekFirst()<a &&!dq.isEmpty()){
+            dq.pollFirst();
+        }
+        return dq.size();
+    }
+}
+
+2. Sliding Window Maximum  (LEETCODE 239)(HARD)
+   CONCEPT : Sliding Window Using Queue
+
+class Solution {
+   public int[] maxSlidingWindow(int[] nums, int k) {
+       if (nums == null || nums.length == 0 || k == 0) return new int[0];
+       int n = nums.length;
+       int[] result = new int[n - k + 1];
+       ArrayDeque<Integer> window = new ArrayDeque<>();
+       for (int i = 0; i < n; i++) {
+           while (!window.isEmpty() && window.peekFirst() <= i - k) {
+               window.pollFirst();
+           }
+           while (!window.isEmpty() && nums[window.peekLast()] <= nums[i]) {
+               window.pollLast();
+           }
+           window.offerLast(i);
+           if (i >= k - 1) {
+               result[i - k + 1] = nums[window.peekFirst()];
+           }
+       }
+       return result;
+   }
+}
