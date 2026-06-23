@@ -1,0 +1,25 @@
+TOPIC : Binary Tree Basics
+DATE : 23-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Binary Tree Inorder Traversal (EETCODE 94)(EASY)
+   CONCEPT : Recursion
+
+class Solution {
+    private List<Integer> res = new ArrayList<>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+        iot(root);
+        return res;
+    }
+    private void iot(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        iot(root.left);
+        res.add(root.val);
+        iot(root.right);
+    }
+}
+
+2. NA
+3. NA
