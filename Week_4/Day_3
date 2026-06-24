@@ -1,0 +1,51 @@
+TOPIC : Binary Tree Basics
+DATE : 24-06-2026
+AUTHOR : ANUJ SINGH SENGAR
+
+1. Binary Tree Search (EETCODE 700)(EASY)
+   CONCEPT : BST
+
+class Solution {
+    class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        TreeNode dummy = root;
+        while(dummy!=null){
+            if(dummy.val==val) return dummy;
+            if(dummy.val>val) dummy=dummy.left;
+            else dummy=dummy.right;
+        }
+        return dummy;
+    }
+}
+
+2. Validate Binary Search Tree (LEETCODE 98 ) (MEDIUM)
+   Concept : BST TRAVERSAL
+
+class Solution {
+    private TreeNode prev = null;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+        if (!isValidBST(root.left)) return false;
+        if (prev != null && prev.val >= root.val) return false;
+        prev = root;
+        return isValidBST(root.right);
+    }
+}
+3. Binary Tree Maximum Path Sum (LEETCODE 124) (HARD)
+   Concept : BST + RECURSION
+
+class Solution {
+    private int max = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        pathmax(root);
+        return max;
+    }
+    private int pathmax(TreeNode node) {
+        if (node == null) return 0;
+        int l = Math.max(pathmax(node.left), 0);
+        int r = Math.max(pathmax(node.right), 0);
+        int newprice = node.val + l + r;
+        max = Math.max(max, newprice);
+        return node.val + Math.max(l, r);
+    }
+}
