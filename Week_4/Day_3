@@ -31,21 +31,20 @@ class Solution {
         return isValidBST(root.right);
     }
 }
-3. Binary Tree Maximum Path Sum (LEETCODE 124) (HARD)
-   Concept : BST + RECURSION
+3. Lowest Common Ancestor of a BST (LEETCODE 235) (Medium)
+   Concept : BST Searching
 
 class Solution {
-    private int max = Integer.MIN_VALUE;
-    public int maxPathSum(TreeNode root) {
-        pathmax(root);
-        return max;
-    }
-    private int pathmax(TreeNode node) {
-        if (node == null) return 0;
-        int l = Math.max(pathmax(node.left), 0);
-        int r = Math.max(pathmax(node.right), 0);
-        int newprice = node.val + l + r;
-        max = Math.max(max, newprice);
-        return node.val + Math.max(l, r);
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while (root != null) {
+            if (p.val > root.val && q.val > root.val) {
+                root = root.right;
+            } else if (p.val < root.val && q.val < root.val) {
+                root = root.left;
+            } else {
+                return root;
+            }
+        }
+        return null;        
     }
 }
